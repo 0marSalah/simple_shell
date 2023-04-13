@@ -16,8 +16,13 @@
   *  the user enters an empty line.
 */
 
+extern char **environ;  // Declare the environ variable
+
 int main(void)
 {
+  char *args[] = {"/bin/ls", "-l", NULL};
+  execve("/bin/ls", args, environ);
+
   char *line = NULL;
   size_t len = 0;
   ssize_t nread;
