@@ -14,7 +14,7 @@ int main(void)
     int status;
 
     while (1) {
-        printf("$ ");
+        printf(":) ");
         nread = getline(&line, &len, stdin);
         if (nread == -1) {
             if (feof(stdin)) {
@@ -35,6 +35,10 @@ int main(void)
         char **args;
         args = parse_args(line);
         
+        if (strcmp(args[0], "exit") == 0) {
+            printf("Exiting shell...\n");
+            exit(EXIT_SUCCESS);
+        }
 
         run_command(args);
     }
