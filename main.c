@@ -1,8 +1,3 @@
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-#include <unistd.h>
-#include <sys/wait.h>
 #include "main.h"
 
 int main(void)
@@ -33,7 +28,7 @@ int main(void)
 
         // Parse the input into tokens
         char **args;
-        args = parse_args(line);
+        args = parse_line_to_args(line);
         
         if (strcmp(args[0], "exit") == 0) {
             printf("Exiting shell...\n");
@@ -44,5 +39,4 @@ int main(void)
     }
 
     free(line);
-    exit(EXIT_SUCCESS);
 }

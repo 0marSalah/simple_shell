@@ -8,7 +8,7 @@ void run_command(char **args) {
     } else if (pid == 0) {
         // Child process
         execvp(args[0], args);
-        perror("exec");
+        perror("error: unexpected command");
         exit(EXIT_FAILURE);
     } else {
         // Parent process

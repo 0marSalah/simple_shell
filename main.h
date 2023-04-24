@@ -12,7 +12,8 @@
 #include <errno.h>
 #include <fcntl.h>
 
-char** parse_args(char* line);
+char** parse_line_to_args(char* line);
 void run_command(char **args);
+char *_getline(void);
 
 #endif
