@@ -1,47 +1,62 @@
-#include "main.h"
+#include "shell.h"
 
-#define BUFFER_SIZE 1024
-
-/*  
-  * _getline - read a line from stdin
-  * 
-  * Return: a line from stdin
+/**
+* _getline - gets the next line of input from STDIN
+* @info: parameter struct
+* @ptr: address of pointer to buffer, preallocated or NULL
+* @length: size of preallocated ptr buffer if not NULL
+*
+* Return: s
 */
-
-ssize_t _getline(char **lineptr, size_t *n, FILE *stream)
+int _getline(info_t *info, char **ptr, size_t *length)
 {
-    ssize_t bytes_read = 0;
-    char *buffer = NULL;
-    size_t buffer_size = 0;
-    size_t line_size = 0;
-    char *line = NULL;
-    char *tmp = NULL;
+size_t k;
+size_t r = 0, s = 0;
+char *p = NULL, *new_p = NULL, *c;
+static char buf[READ_BUF_SIZE];
+static size_t i, len;
 
-    if (lineptr == NULL || n == NULL || stream == NULL)
-        return (-1);
+p = *ptr;
+if (p && length)
+{
+s = *length;
+}
+if (i == len)
+{
+i = len = 0;
+}
 
-    buffer = malloc(sizeof(char) * BUFFER_SIZE);
-    if (buffer == NULL)
-        return (-1);
+r = read_buf(info, buf, &len);
+if (r == -1 || (r == 0 && len == 0))
+{
+return (-1);
+}
 
-    while ((bytes_read = read(STDIN_FILENO, buffer, BUFFER_SIZE)) > 0)
-    {
-        buffer[bytes_read] = '\0';
-        tmp = realloc(line, line_size + bytes_read + 1);
-        if (tmp == NULL)
-        {
-            free(line);
-            free(buffer);
-            return (-1);
-        }
-        line = tmp;
-        _strcat(line, buffer);
-        line_size += bytes_read;
-        if (buffer[bytes_read - 1] == '\n')
-            break;
-    }
-    free(buffer);
-    *lineptr = line;
-    *n = line_size;
-    return (bytes_read);
+c = _strchr(buf + i, '\n');
+k = c ? 1 + (unsigned int)(c - buf) : len;
+new_p = _realloc(p, s, s ? s + k : k + 1);
+if (!new_p) /* MALLOC FAILURE! */
+{
+return (p ? free(p), -1 : -1);
+}
+
+if (s)
+{
+_strncat(new_p, buf + i, k - i);
+}
+else
+{
+_strncpy(new_p, buf + i, k - i + 1);
+}
+
+s += k - i;
+i = k;
+p = new_p;
+
+if (length)
+{
+*length = s;
+}
+*ptr = p;
+return (s);
 }
