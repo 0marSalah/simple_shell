@@ -8,19 +8,17 @@
  */
 int _myunsetenv(info_t *info)
 {
-int i;
+	int i;
 
-if (info->argc == 1)
-{
-_error_puts("Too few arguements.\n");
-return (1);
-}
-for (i = 1; i <= info->argc; i++)
-{
-_unsetenv(info, info->argv[i]);
-}
+	if (info->argc == 1)
+	{
+		_error_puts("Too few arguements.\n");
+		return (1);
+	}
+	for (i = 1; i <= info->argc; i++)
+		_unsetenv(info, info->argv[i]);
 
-return (0);
+	return (0);
 }
 
 /**
@@ -32,27 +30,25 @@ return (0);
  */
 int _unsetenv(info_t *info, char *var)
 {
-size_t i = 0;
-char *p;
-list_t *node = info->env;
+	list_t *node = info->env;
+	size_t i = 0;
+	char *p;
 
-if (!node || !var)
-{
-return (0);
-}	
+	if (!node || !var)
+		return (0);
 
-while (node)
-{
-p = starts_with(node->str, var);
-if (p && *p == '=')
-{
-info->env_changed = delete_node_at_index(&(info->env), i);
-i = 0;
-node = info->env;
-continue;
-}
-node = node->next;
-i++;
-}
-return (info->env_changed);
+	while (node)
+	{
+		p = starts_with(node->str, var);
+		if (p && *p == '=')
+		{
+			info->env_changed = delete_node_at_index(&(info->env), i);
+			i = 0;
+			node = info->env;
+			continue;
+		}
+		node = node->next;
+		i++;
+	}
+	return (info->env_changed);
 }
