@@ -8,15 +8,13 @@
  */
 void _error_puts(char *str)
 {
-int i = 0;
+	int i = 0;
 
-if (!str)
-{
-return;
-}
-while (str[i] != '\0')
-{
-_error_putchar(str[i]);
-i++;
-}
+	if (!str)
+		return;
+	while (str[i] != '\0')
+	{
+		_error_putchar(str[i]);
+		i++;
+	}
 }
