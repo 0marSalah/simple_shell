@@ -145,7 +145,7 @@ char *_itoa(long int num, int base, int flags);
 
 int exit_shell(info_t *);
 int _change_dir(info_t *);
-int _myalias(info_t *);
+int _alias(info_t *);
 
 ssize_t input_buffer(info_t *info, char **buf, size_t *len);
 ssize_t get_input(info_t *);
@@ -181,6 +181,10 @@ int is_next(info_t *, char *, size_t *);
 void check_next(info_t *, char *, size_t *, size_t, size_t);
 int replace_alias(info_t *);
 int print_alias(list_t *);
+int unset_alias(info_t *info, char *str);
+int set_alias(info_t *info, char *str);
+int _alias(info_t *info);
+int replace_alias(info_t *info);
 int replace_vars(info_t *);
 void comment_handling(char *);
 int replace_string(char **, char *);

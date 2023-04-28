@@ -18,7 +18,7 @@ int check_builtin(info_t *info)
 		{"setenv", _mysetenv},
 		{"unsetenv", _myunsetenv},
 		{"cd", _change_dir},
-		{"alias", _myalias},
+		{"alias", _alias},
 		{NULL, NULL}};
 
 	for (i = 0; builtintbl[i].type; i++)
