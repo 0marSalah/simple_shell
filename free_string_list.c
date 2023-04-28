@@ -6,15 +6,11 @@
  */
 void free_string_list(char **pp)
 {
-char **a = pp;
+	char **a = pp;
 
-if (!pp)
-{
-return;
-}
-while (*pp)
-{
-free(*pp++);
-}
-free(a);
+	if (!pp)
+		return;
+	while (*pp)
+		free(*pp++);
+	free(a);
 }
