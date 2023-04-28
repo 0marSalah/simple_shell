@@ -8,8 +8,8 @@
  */
 int _env(info_t *info)
 {
-print_list_str(info->env);
-return (0);
+	print_list_str(info->env);
+	return (0);
 }
 
 /**
@@ -20,33 +20,31 @@ return (0);
  */
 size_t print_list_str(const list_t *h)
 {
-size_t i = 0;
+	size_t i = 0;
 
-while (h)
-{
-_puts(h->str ? h->str : "(nil)");
-_puts("\n");
-h = h->next;
-i++;
-}
-return (i);
+	while (h)
+	{
+		_puts(h->str ? h->str : "(nil)");
+		_puts("\n");
+		h = h->next;
+		i++;
+	}
+	return (i);
 }
 
 /**
-* env_list - populates env linked list
-* @info: Structure containing potential arguments. Used to maintain
-*		  constant function prototype.
-* Return: Always 0
-*/
+ * env_list - populates env linked list
+ * @info: Structure containing potential arguments. Used to maintain
+ *		  constant function prototype.
+ * Return: Always 0
+ */
 int env_list(info_t *info)
 {
-list_t *node = NULL;
-size_t i;
+	list_t *node = NULL;
+	size_t i;
 
-for (i = 0; environ[i]; i++)
-{
-add_node_end(&node, environ[i], 0);
-}
-info->env = node;
-return (0);
+	for (i = 0; environ[i]; i++)
+		add_node_end(&node, environ[i], 0);
+	info->env = node;
+	return (0);
 }
